@@ -8,8 +8,13 @@ dotenv.load_dotenv()
 
 bootstrapper.initialize_routes(app)
 
+
+server_address = os.getenv('SERVER_ADDRESS')
+
 if __name__ == "__main__":
+    from waitress import serve
     app.config['JSON_SORT_KEYS'] = False
-    app.run(port=os.getenv('SERVER_ADDRESS'))
+    serve(app=app, host='0.0.0.0', port=server_address)
+    # app.run(port=server_address)
 
 

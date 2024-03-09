@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='forecasting flask',
+    name='forecasting-flask',
     version='1.0',
     scripts=['app.py'],
     packages= find_packages(),
@@ -12,6 +12,7 @@ setup(
         'python-dotenv',
         'pandas',
         'numpy',
-        'scikit-learn'
+        'scikit-learn',
+        'waitress'
     ]
 )
