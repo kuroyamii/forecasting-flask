@@ -1,10 +1,7 @@
 from flask import Flask, request, jsonify
 import pkg.response.base as response
+import internal.controller.forecast as forecast
 
 def ping():
     return response.success_response("pong")
-
-
-def init_routes(app: Flask):
-    app.route("/ping",methods=['GET'])(ping)
-    
+ 

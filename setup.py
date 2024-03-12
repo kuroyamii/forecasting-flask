@@ -13,6 +13,7 @@ setup(
         'pandas',
         'numpy',
         'scikit-learn',
-        'waitress'
+        'waitress',
+        'pickle'
     ]
 )

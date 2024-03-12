@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, make_response
 import http
 
 
@@ -16,7 +16,7 @@ class BaseResponse:
 
 
 def success_response(data):
-    return BaseResponse(200, http.HTTPStatus.OK.phrase, None, data).json()
+    return make_response(BaseResponse(200, http.HTTPStatus.OK.phrase, None, data).json(), 200)
 
-def error_response(error,code):
-    return BaseResponse(code, code.phrase, error, None).json()
+def error_response(error,code, phrase):
+    return make_response(BaseResponse(code, phrase, error, None).json(), code)
