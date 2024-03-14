@@ -13,6 +13,7 @@ feature_names = ['Order Month', 'Order Year', 'Product ID']
 
 @validator.expects_json(ForecastRequestBody)
 def forecast():
+    print("INFO Forecasting Request")
     req = request.json
     month = req['month']
     year = req['year']
@@ -20,13 +21,15 @@ def forecast():
 
     # data = np.array([[month, year, product_id]])
     data = pd.DataFrame({"Order Month":[month],"Order Year":[year],"Product ID":[product_id]})
-
+    print("INFO Predicting Result")
     model_res = model.predict(data)
+    print("INFO Forecasting Result ->", model_res[0])
     res = {
-        "order_month":month,
-        "order_year":year,
+        "month":month,
+        "year":year,
         "product_id":product_id,
         "result":model_res[0]
     }
+    print("INFO Returning Results")
     return response.success_response(res)
 
