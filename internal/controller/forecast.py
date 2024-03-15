@@ -5,11 +5,18 @@ from internal.model.forecast import ForecastRequestBody
 import pickle
 import numpy as np
 import pandas as pd
+import os
 
 
+# model = pickle.load(open('./model.pkl','rb'))
+models = {}
+for item in os.listdir("./ml_model"):
+    model = pickle.load(open("./ml_model/{}".format(item),"rb"))
+    name = item.split("_")[1]
+    models[name] = model
 
-model = pickle.load(open('./model.pkl','rb')) 
-feature_names = ['Order Month', 'Order Year', 'Product ID']
+
+feature_names = ['Order Month', 'Order Year', 'Discount']
 
 @validator.expects_json(ForecastRequestBody)
 def forecast():
@@ -17,17 +24,21 @@ def forecast():
     req = request.json
     month = req['month']
     year = req['year']
-    product_id = req['product_id']
+    sub_category = req['sub_category']
+    discount = req['discount']
 
-    # data = np.array([[month, year, product_id]])
-    data = pd.DataFrame({"Order Month":[month],"Order Year":[year],"Product ID":[product_id]})
+    data = pd.DataFrame({"Discount":[discount],"Order Month":[month],"Order Year":[year]})
+
+
+
+    # Forecast using model
     print("INFO Predicting Result")
-    model_res = model.predict(data)
+    model_res = models[sub_category+".pkl"].predict(data)
     print("INFO Forecasting Result ->", model_res[0])
     res = {
         "month":month,
         "year":year,
-        "product_id":product_id,
+        "sub_category":sub_category,
         "result":model_res[0]
     }
     print("INFO Returning Results")

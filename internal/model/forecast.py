@@ -7,9 +7,12 @@ ForecastRequestBody = {
         "year":{
             "type":"integer"
         },
-        "product_id":{
-            "type":"integer"
+        "sub_category":{
+            "type":"string"
+        },
+        "discount":{
+            "type":"number"
         }
     },
-    "required":["month","year","product_id"]
+    "required":["month","year","sub_category","discount"]
 }
