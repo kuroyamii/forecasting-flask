@@ -9,10 +9,7 @@ ForecastRequestBody = {
         },
         "sub_category":{
             "type":"string"
-        },
-        "discount":{
-            "type":"number"
         }
     },
-    "required":["month","year","sub_category","discount"]
+    "required":["month","year","sub_category"]
 }
